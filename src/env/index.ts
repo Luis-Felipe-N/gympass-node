@@ -1,15 +1,17 @@
 import 'dotenv'
 import z from 'zod'
 
-const envShema = z.object({
+const envSchema = z.object({
+  NODE_ENV: z.enum(['dev', 'test', 'prod']).default('dev'),
   PORT: z.coerce.number().default(3333),
-  NODE_ENV: z.enum(['env', 'test', 'prod']).default('env'),
 })
 
-const _env = envShema.safeParse(process.env)
+const _env = envSchema.safeParse(process.env)
 
 if (_env.success === false) {
-  console.log('Invalid environments variables')
+  console.log(
+    `Invalid environments variables - ${String(_env.error.format()._errors)}`,
+  )
 
   throw new Error('Invalid environments variables')
 }
