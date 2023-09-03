@@ -2,9 +2,8 @@ import { describe } from 'node:test'
 import { expect, it } from 'vitest'
 import { RegisterUseCase } from './register.usecase'
 import { compare } from 'bcryptjs'
-import { Prisma } from '@prisma/client'
 import { InMemoryUsersRepository } from '@/repositories/memory/in-memory-users-repository'
-import { UserAlreadyExists } from './errors/user-already-exists-error'
+import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
 describe('Register Use Case', () => {
   it('Should be able to register', async () => {
@@ -39,7 +38,7 @@ describe('Register Use Case', () => {
     const userRepository = new InMemoryUsersRepository()
     const registerUseCase = new RegisterUseCase(userRepository)
 
-    const { user } = await registerUseCase.execute({
+    await registerUseCase.execute({
       name: 'Teste da Silva',
       email: 'testedasilva01@gmail.com',
       password: '123456',
@@ -51,6 +50,6 @@ describe('Register Use Case', () => {
         email: 'testedasilva01@gmail.com',
         password: '123456',
       }),
-    ).rejects.toBeInstanceOf(UserAlreadyExists)
+    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })
