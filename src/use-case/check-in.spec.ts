@@ -6,7 +6,7 @@ let checkInsRepository: InMemoryCheckInsRepository
 let sut: CheckInsUseCase
 
 describe('Check ins Use Case', async () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository()
     sut = new CheckInsUseCase(checkInsRepository)
 
@@ -14,23 +14,20 @@ describe('Check ins Use Case', async () => {
   })
 
   afterEach(() => {
-    // restoring date after each test run
     vi.useRealTimers()
   })
 
   it('should be able to check in', async () => {
     const { checkIn } = await sut.execute({
-      gymId: 'ass',
-      userId: 'ass',
+      gymId: 'gym-01',
+      userId: 'user-01',
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
   })
 
   it('should not be able to check in twice in the same day', async () => {
-    const date = new Date(22, 1, 1, 13, 0, 0)
-    vi.setSystemTime(date)
-
+    vi.setSystemTime(new Date(2022, 5, 20, 8, 0, 0))
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
@@ -45,23 +42,20 @@ describe('Check ins Use Case', async () => {
   })
 
   it('should be able to check in twice but different day', async () => {
-    vi.setSystemTime(new Date(22, 1, 1, 13, 0, 0))
+    vi.setSystemTime(new Date(22, 1, 1, 8, 0, 0))
 
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
     })
 
-    vi.setSystemTime(new Date(22, 1, 1, 12, 0, 0))
+    vi.setSystemTime(new Date(22, 1, 8, 9, 0, 0))
 
     const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
     })
 
-    expect(checkIn.id).toBe(expect.any(String))
+    expect(checkIn.id).toEqual(expect.any(String))
   })
 })
-
-const date = new Date(2000, 1, 1, 13)
-vi.setSystemTime(date)
