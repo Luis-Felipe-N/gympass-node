@@ -20,9 +20,7 @@ export async function authenticate(
     const authenticateUseCase = makeAuthenticateUseCase()
 
     await authenticateUseCase.execute({ email, password })
-    console.log(email, password)
   } catch (error) {
-    console.log(error)
     if (error instanceof InvalidCredentialsError) {
       return reply.status(400).send({ message: error.message })
     }
