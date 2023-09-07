@@ -1,9 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-
-import { GetUserProfileUseCase } from './get-user-profile.usecase'
 import { InMemoryCheckInsRepository } from '@/repositories/memory/in-memory-check-ins-repository'
 import { FetchUserCheckInsHistoryUseCase } from './fetch-user-check-ins-history.usecase'
-import { hash } from 'bcryptjs'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let sut: FetchUserCheckInsHistoryUseCase
