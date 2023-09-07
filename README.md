@@ -67,7 +67,7 @@ A API utiliza autenticação por token. Para acessar os endpoints que requerem a
 - [x] Deve ser possível o usuário buscar academias próximas (10km);
 - [x] Deve ser possível o usuário buscar academias pelo nome;
 - [x] Deve ser possível realizar check-in em uma academia;
-- [ ] Deve ser possível validar o check-in de um usuário;
+- [x] Deve ser possível validar o check-in de um usuário;
 - [x] Deve ser possível cadastrar uma academia;
 
 ## RNs (Regras de negócio)
