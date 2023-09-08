@@ -1,20 +1,21 @@
-import { InMemoryCheckInsRepository } from '@/repositories/memory/in-memory-check-ins-repository'
 import { afterEach, beforeEach, describe, expect, vi, it } from 'vitest'
-import { CheckInsUseCase } from './check-in.usecase'
-import { InMemoryGymsRepository } from '@/repositories/memory/in-memory-gyms-repository'
 import { Decimal } from '@prisma/client/runtime/library'
-import { MaxDistanceError } from './errors/max-distance-error'
+
+import { InMemoryCheckInsRepository } from '@/repositories/memory/in-memory-check-ins-repository'
+import { InMemoryGymsRepository } from '@/repositories/memory/in-memory-gyms-repository'
+import { CheckInUseCase } from './check-in.usecase'
 import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
+import { MaxDistanceError } from './errors/max-distance-error'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
-let sut: CheckInsUseCase
+let sut: CheckInUseCase
 
 describe('Check ins Use Case', async () => {
   beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository()
     gymsRepository = new InMemoryGymsRepository()
-    sut = new CheckInsUseCase(checkInsRepository, gymsRepository)
+    sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
     await gymsRepository.create({
       id: 'gym-01',

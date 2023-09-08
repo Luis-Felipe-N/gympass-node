@@ -7,7 +7,7 @@ services:
   gympass-api:
     image: bitnami/postgresql
     ports:
-      - 3332:3332
+      - 5432:5432
     environment:
       - POSTGRESQL_USERNAME=gympass-api
       - POSTGRESQL_PASSWORD=gympass

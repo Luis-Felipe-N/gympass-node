@@ -6,20 +6,20 @@ import { LateCheckInValidateError } from './errors/late-check-in-validate-error'
 
 import dayjs from 'dayjs'
 
-interface ValidateCheckInsUseCaseRequest {
+interface ValidateCheckInUseCaseRequest {
   checkInId: string
 }
 
-interface ValidateCheckInsUseCaseResponse {
+interface ValidateCheckInUseCaseResponse {
   checkIn: CheckIn
 }
 
-export class ValidateCheckInsUseCase {
+export class ValidateCheckInUseCase {
   constructor(private checkinsRepository: CheckInsRepository) {}
 
   async execute({
     checkInId,
-  }: ValidateCheckInsUseCaseRequest): Promise<ValidateCheckInsUseCaseResponse> {
+  }: ValidateCheckInUseCaseRequest): Promise<ValidateCheckInUseCaseResponse> {
     const checkIn = await this.checkinsRepository.findById(checkInId)
 
     if (!checkIn) {
