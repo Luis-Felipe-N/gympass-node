@@ -17,16 +17,16 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     }),
   })
 
-  const data = createCheckInsBodySchema.parse(request.body)
   const { gymId } = createCheckInsParamsSchema.parse(request.params)
+  const { latitude, longitude } = createCheckInsBodySchema.parse(request.body)
 
   const createCheckInUseCase = makeCheckInUseCase()
 
   await createCheckInUseCase.execute({
     gymId,
     userId: request.user.sub,
-    userLatitude: data.latitude,
-    userLongitude: data.longitude,
+    userLatitude: latitude,
+    userLongitude: longitude,
   })
 
   reply.status(201).send()
