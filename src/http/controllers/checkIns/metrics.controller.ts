@@ -1,8 +1,6 @@
 import { makeGetUserMetricsUseCase } from '@/use-case/factories/make-get-user-metrics-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { z } from 'zod'
-
 export async function metrics(request: FastifyRequest, reply: FastifyReply) {
   const getUserMetricsUseCase = makeGetUserMetricsUseCase()
 
