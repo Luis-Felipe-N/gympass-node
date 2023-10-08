@@ -1,11 +1,9 @@
 import { app } from '@/app'
-import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
-import { Decimal } from '@prisma/client/runtime/library'
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { z } from 'zod'
+import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
 
-describe('Register (e2e)', () => {
+describe('Create (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
